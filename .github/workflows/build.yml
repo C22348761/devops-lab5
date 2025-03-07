@@ -1,22 +1,25 @@
 name: Build C Program
-on: [push]
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Debug directory
-        run: |
-          pwd
-          ls -l
+
       - name: Build
-        run: |
-          make
-          ls -l
-          [ -f main ] && echo "main file exists" || echo "main file does NOT exist"
+        run: make
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: main-binary
-          path: main
+          name: main-binary  # Name of the artifact in GitHub
+          path: main        # File produced by `make`
