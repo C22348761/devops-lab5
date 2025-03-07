@@ -6,8 +6,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Debug directory
+        run: |
+          pwd
+          ls -l
       - name: Build
-        run: make
+        run: |
+          make
+          ls -l
+          [ -f main ] && echo "main file exists" || echo "main file does NOT exist"
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
